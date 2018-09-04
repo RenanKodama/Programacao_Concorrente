@@ -1,3 +1,15 @@
+/*
+Universidade Tecnológica Federal do Paraná
+Programação Concorrente
+
+Renan Kodama Rodrigues 1602098
+
+    3. Faça um programa Java que envia interrupções para as
+    threads dos exercı́cios anteriores. As threads devem fazer o
+    tratamento dessas interrupções e realizar uma finalização
+    limpa.
+*/
+
 package Aula03_Slide17;
 
 import ProgConc01.ClasseRun;

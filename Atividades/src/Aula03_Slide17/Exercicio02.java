@@ -1,3 +1,13 @@
+/*
+Universidade Tecnológica Federal do Paraná
+Programação Concorrente
+
+Renan Kodama Rodrigues 1602098
+
+    2. Faça uma thread Java que realize a leitura de um arquivo
+    texto com frases e exiba as frases a cada 10 segundos.
+*/
+
 package Aula03_Slide17;
 
 import ProgConc01.ClasseRun;

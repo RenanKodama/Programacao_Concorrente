@@ -1,3 +1,19 @@
+/*
+Universidade Tecnológica Federal do Paraná
+Programação Concorrente
+
+Renan Kodama Rodrigues 1602098
+
+    1. Faça um programa em Java que consulte periodicamente o
+    estado de um conjunto de threads.
+
+    2. Faça um programa em Java para testar um conjunto de
+    operações sobre um grupo de threads. Use o ThreadGroup.
+*/
+
+
+
+
 package Aula03_Slide28;
 
 import java.util.logging.Level;
@@ -39,6 +55,7 @@ public class Exercicio01_02 extends Thread {
         System.out.println("Threads Ativas: " + threadGroup.activeCount());
         System.out.println("Max. Permissão: "+threadGroup.getMaxPriority());
         System.out.println("Info: ");
+        
         for (Thread thr : listThread) {
             System.out.println("\tId: "+ thr.getId());
             System.out.println("\tName: "+thr.getName());

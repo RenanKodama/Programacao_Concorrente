@@ -1,3 +1,14 @@
+/*
+Universidade Tecnológica Federal do Paraná
+Programação Concorrente
+
+Renan Kodama Rodrigues 1602098
+
+    5. Faça uma thread Java que fica aguardando uma sequência
+    numérica de tamanho arbitrário digitado por usuário para
+    realizar uma soma. Use o join().
+*/
+
 package Aula03_Slide17;
 
 import java.util.Scanner;

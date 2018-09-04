@@ -1,3 +1,13 @@
+/*
+Universidade Tecnológica Federal do Paraná
+Programação Concorrente
+
+Renan Kodama Rodrigues 1602098
+    4. Faça um programa em Java que realize uma busca paralela
+        em um vetor de inteiros. Informe para o método: valor
+        procurado, vetor de inteiros e o número de threads.
+*/
+
 package Aula03_Slide28;
 
 public class Exercicio04 {
