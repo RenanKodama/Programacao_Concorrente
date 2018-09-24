@@ -24,27 +24,27 @@ public class Principal {
 
         
         /*EXERCICIO 02 (Atomicidade)*/
-        startTime = System.nanoTime();
-        ListaCompartilhada_Atomic lista_atom = new ListaCompartilhada_Atomic(1, 10000000, 6);
-        lista_atom.numerosPrimos();
-        endTime = System.nanoTime() - startTime;
-        System.out.println("Tempo Total com Atomicidade: "+(endTime/10000)+"ns");
+//        startTime = System.nanoTime();
+//        ListaCompartilhada_Atomic lista_atom = new ListaCompartilhada_Atomic(1, 10000000, 6);
+//        lista_atom.numerosPrimos();
+//        endTime = System.nanoTime() - startTime;
+//        System.out.println("Tempo Total com Atomicidade: "+(endTime/10000)+"ns");
 
         
         /*EXERCICIO 02 (Bloco Sincronizado)*/
-        startTime = System.nanoTime();
-        ListaCompartilhada_Block lista_block = new ListaCompartilhada_Block(1, 10000000, 6);
-        lista_block.numerosPrimos();
-        endTime = System.nanoTime() - startTime;
-        System.out.println("Tempo Toal com Bloco Sincro.: "+(endTime/10000)+"ns");
+//        startTime = System.nanoTime();
+//        ListaCompartilhada_Block lista_block = new ListaCompartilhada_Block(1, 10000000, 6);
+//        lista_block.numerosPrimos();
+//        endTime = System.nanoTime() - startTime;
+//        System.out.println("Tempo Toal com Bloco Sincro.: "+(endTime/10000)+"ns");
 
         
         /*EXERCICIO 02 (Metodo Sincronizado)*/
-        startTime = System.nanoTime();
-        ListaCompartilhada_Method lista_method = new ListaCompartilhada_Method(1, 10000000, 6);
-        lista_method.numerosPrimos();
-        endTime = System.nanoTime() - startTime;
-        System.out.println("Tempo Total com Metodo Sincro.: "+(endTime/10000)+"ns");
+//        startTime = System.nanoTime();
+//        ListaCompartilhada_Method lista_method = new ListaCompartilhada_Method(1, 10000000, 6);
+//        lista_method.numerosPrimos();
+//        endTime = System.nanoTime() - startTime;
+//        System.out.println("Tempo Total com Metodo Sincro.: "+(endTime/10000)+"ns");
         
     }
 }

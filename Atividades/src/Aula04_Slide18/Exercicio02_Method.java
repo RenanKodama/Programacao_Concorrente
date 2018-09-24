@@ -29,7 +29,7 @@ public class Exercicio02_Method extends Thread {
         int numero;
         int count = 0;
 
-        while (this.lista.getIndice().get() != -1) {
+        while (this.lista.getIndice().get() < this.lista.getSize()) {
             numero = this.lista.getNumber();
             count = 0;
 
@@ -40,10 +40,10 @@ public class Exercicio02_Method extends Thread {
                     }
                 }
                 if (count == 2) {
-                    //System.out.println("Numero Primo: " + numero);
+                    System.out.println("Numero Primo: " + numero);
                 }
             }
-            //sleep(1000);
+            sleep(1000);
         }
     }
 
