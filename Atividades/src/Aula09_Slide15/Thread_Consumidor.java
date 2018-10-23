@@ -14,8 +14,11 @@ public class Thread_Consumidor extends Thread{
 
     @Override
     public void run() {
+        int valor;
         while (true) {
-            
+            valor = this.ex_02.getValorLista();
+            System.out.println("Valor Removido: "+valor);
+            sleep(valor);
         }
 
     }

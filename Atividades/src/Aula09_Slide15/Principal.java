@@ -12,10 +12,12 @@ public class Principal {
     public static void main(String[] args) {
         
         /*EXERCICIO 01*/
-        Exercicio01 ex_01 = new Exercicio01();
-        ex_01.init();
+//        Exercicio01 ex_01 = new Exercicio01();
+//        ex_01.init();
         
-        
+        /*EXERCICIO 02*/
+//        Exercicio02 ex_02 = new Exercicio02(20);
+//        ex_02.init();
         
     }
 }
