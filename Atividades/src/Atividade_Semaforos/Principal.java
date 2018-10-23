@@ -26,7 +26,14 @@ public class Principal {
         //Exercicio04 ex04 = new Exercicio04(3, 9);
         //ex04.init();
         
-        Exercicio05 ex05 = new Exercicio05(9, 5);
-        ex05.init();
+        /*EXERCICIO 05*/
+        //Exercicio05 ex05 = new Exercicio05(9, 5);
+        //ex05.init();
+        
+        /*EXERCICIO 07*/
+        Exercicio07 ex07 = new Exercicio07(5, 3);
+        ex07.init();
+        
+        
     }
 }
