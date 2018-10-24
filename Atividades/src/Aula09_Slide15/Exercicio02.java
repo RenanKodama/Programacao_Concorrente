@@ -1,8 +1,14 @@
 /*
+    Universidade Tecnológica Federal do Paraná
+    Programação Concorrente
+    
+    Renan Kodama Rodrigues 1602098 
+
     Crie uma classe SharedFifoQueue e use Conditions para
     controlar se a fila está vazia ou cheia. Teste usando threads
     produtoras e consumidoras.
  */
+
 package Aula09_Slide15;
 
 import java.util.ArrayList;

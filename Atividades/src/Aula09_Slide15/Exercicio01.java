@@ -1,8 +1,14 @@
 /*
+     Universidade Tecnológica Federal do Paraná
+    Programação Concorrente
+    
+    Renan Kodama Rodrigues 1602098   
+
     Faça um programa usando Lock para simular a atualiza ̧c ̃ao de
     um contador que  ́e acessado por m ́ultiplas threads.  O
     contador pode diminuir e aumentar.
  */
+
 package Aula09_Slide15;
 
 import java.util.concurrent.locks.ReentrantLock;
@@ -37,7 +43,7 @@ public class Exercicio01 {
     public void init() {
         Thread_IncrementDecrement thr_01 = new Thread_IncrementDecrement(this, true);
         Thread_IncrementDecrement thr_02 = new Thread_IncrementDecrement(this, false);
-        
+
         thr_01.start();
         thr_02.start();
     }

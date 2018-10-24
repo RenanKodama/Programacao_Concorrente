@@ -2,7 +2,7 @@
     Universidade Tecnológica Federal do Paraná
     Programação Concorrente
     
-    Renan Kodama Rodrigues 1602098    
+    Renan Kodama Rodrigues 1602098
 */
 
 package Aula09_Slide15;
@@ -12,28 +12,26 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Thread_Produtor extends Thread {
+public class Thread_Leitor extends Thread {
 
-    Exercicio02 ex_02;
+    Exercicio03 ex_03;
     Random gerador;
     
-    public Thread_Produtor(Exercicio02 ex_02) {
+    public Thread_Leitor(Exercicio03 ex_03) {
+        this.ex_03 = ex_03;
         this.gerador = new Random();
-        this.ex_02 = ex_02;
     }
 
     @Override
     public void run() {
-        int valor;
         while (true) {
-            valor = this.gerador.nextInt(9)+1;
-            ex_02.setValorLista(valor);
-            System.out.println("Valor Inserido: "+valor);
-            sleep(valor);
+            String str = ex_03.ler();
+            System.out.println("Leitor> "+str);
+            sleep((gerador.nextInt(9)+1)*1000);
         }
 
     }
-    
+
     public void sleep(int val) {
         try {
             Thread.sleep(val);

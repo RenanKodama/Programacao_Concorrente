@@ -19,5 +19,8 @@ public class Principal {
 //        Exercicio02 ex_02 = new Exercicio02(20);
 //        ex_02.init();
         
+        /*EXERCICIO 03*/
+        Exercicio03 ex_03 = new Exercicio03();
+        ex_03.init(3, 5);
     }
 }
