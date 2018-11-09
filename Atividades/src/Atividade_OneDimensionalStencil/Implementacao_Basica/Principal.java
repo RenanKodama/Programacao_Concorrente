@@ -1,3 +1,11 @@
+/*
+    Universidade Tecnológica Federal do Paraná
+    Programação Concorrente
+    
+    Renan Kodama Rodrigues 1602098
+
+    Problema: One-Dimensional Stencil
+*/
 
 package Atividade_OneDimensionalStencil.Implementacao_Basica;
 

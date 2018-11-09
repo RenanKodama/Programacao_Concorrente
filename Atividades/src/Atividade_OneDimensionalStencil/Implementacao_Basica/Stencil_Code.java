@@ -1,3 +1,11 @@
+/*
+    Universidade Tecnológica Federal do Paraná
+    Programação Concorrente
+    
+    Renan Kodama Rodrigues 1602098
+    
+*/
+
 package Atividade_OneDimensionalStencil.Implementacao_Basica;
 
 public class Stencil_Code implements Runnable {
