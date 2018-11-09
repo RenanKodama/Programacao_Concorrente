@@ -13,7 +13,8 @@ public class Principal {
     
     public static void main(String[] args) {
         Random random = new Random();
-    
+        
+        //Inicializar vetor
         int tamVet = 99999999;
         int[] vetor = new int[tamVet];
         
@@ -21,7 +22,12 @@ public class Principal {
             vetor[i] = random.nextInt(999999999);
         }
         
+        /*EXERCICIO 01*/
         Exercicio01 ex01 = new Exercicio01(vetor, 10);
         ex01.searchBiggerNum();
+        
+        
+        
+    
     }
 }
