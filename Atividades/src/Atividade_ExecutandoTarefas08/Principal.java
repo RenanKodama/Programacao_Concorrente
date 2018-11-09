@@ -22,12 +22,27 @@ public class Principal {
             vetor[i] = random.nextInt(999999999);
         }
         
+        //Inicializar matriz
+        int sizeX = 1000;
+        int sizeY = 1000;
+        int[][] matriz = new int[sizeY][sizeY];
+        
+        for(int i=0;i<sizeX;i++){
+            for(int j=0;j<sizeY;j++){
+                matriz[i][j] = random.nextInt(999);
+            }
+        }
+        
+        
         /*EXERCICIO 01*/
-        Exercicio01 ex01 = new Exercicio01(vetor, 10);
-        ex01.searchBiggerNum();
+//        Exercicio01 ex01 = new Exercicio01(vetor, 10);
+//        ex01.searchBiggerNum();
         
-        
-        
+        /*EXERCICIO 02*/
+//        Exercicio02 ex02 = new Exercicio02(matriz, 10, sizeX, sizeY);
+//        ex02.sumMatriz();
+
+
     
     }
 }
