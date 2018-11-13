@@ -44,7 +44,7 @@ public class Exercicio02 {
         int somaTotal=0;
         
         while(posicao_Linha < this.sizeX){
-            Tarefa_SumMatrix tarefa = new Tarefa_SumMatrix(posicao_Linha, this.sizeY, this.matriz);
+            Tarefa_SumMatriz tarefa = new Tarefa_SumMatriz(posicao_Linha, this.sizeY, this.matriz);
             Future<Integer> future = this.threadPool.submit(tarefa);
             
             this.listTarefas.add(future);

@@ -3,13 +3,13 @@ package Atividade_ExecutandoTarefas08;
 
 import java.util.concurrent.Callable;
 
-public class Tarefa_SumMatrix implements Callable<Integer>{
+public class Tarefa_SumMatriz implements Callable<Integer>{
 
     int linha;
     int tamColuna;
     int[][] matriz;
 
-    public Tarefa_SumMatrix(int linha, int tamColuna, int[][] matriz) {
+    public Tarefa_SumMatriz(int linha, int tamColuna, int[][] matriz) {
         this.linha = linha;
         this.tamColuna = tamColuna;
         this.matriz = matriz;   
