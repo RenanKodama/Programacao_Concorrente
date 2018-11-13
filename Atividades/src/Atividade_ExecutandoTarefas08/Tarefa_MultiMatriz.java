@@ -1,3 +1,10 @@
+/*
+    Universidade Tecnológica Federal do Paraná
+    Programação Concorrente
+    
+    Renan Kodama Rodrigues 1602098
+*/
+
 package Atividade_ExecutandoTarefas08;
 
 import java.util.concurrent.Callable;
@@ -27,7 +34,6 @@ public class Tarefa_MultiMatriz implements Callable<Integer> {
         }
         
         return sum;
-
     }
 
 }

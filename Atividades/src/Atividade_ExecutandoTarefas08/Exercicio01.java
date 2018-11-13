@@ -10,7 +10,6 @@
     vetor. O programa deve possibilitar especificar o número de tarefas e o
     número de threads para resolver o problema.
 */
-
 package Atividade_ExecutandoTarefas08;
 
 import java.util.ArrayList;

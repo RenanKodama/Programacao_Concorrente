@@ -7,7 +7,9 @@
 
 package Atividade_ExecutandoTarefas08;
 
+
 import java.util.Random;
+
 
 public class Principal {
     
@@ -29,7 +31,7 @@ public class Principal {
         
         for(int i=0;i<sizeX;i++){
             for(int j=0;j<sizeY;j++){
-                matriz[i][j] = random.nextInt(999)+1;
+                matriz[i][j] = random.nextInt(999);
             }
         }
         
@@ -46,8 +48,12 @@ public class Principal {
 //        ex02.sumMatriz();
 
         /*EXERCICIO 03*/
-        Exercicio03 ex03 = new Exercicio03(matriz, matriz, sizeX);
-        ex03.multiMatriz();
+//        Exercicio03 ex03 = new Exercicio03(matriz, matriz, sizeX);
+//        ex03.multiMatriz();
     
+        /*EXERCICIO 04*/
+        Exercicio04 ex04 = new Exercicio04("src/Atividade_ExecutandoTarefas08/Exercicio01.java");
+ 
     }
 }
+

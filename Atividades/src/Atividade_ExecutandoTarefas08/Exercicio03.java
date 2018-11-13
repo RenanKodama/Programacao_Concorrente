@@ -79,6 +79,8 @@ public class Exercicio03 {
             }
             System.out.println();
         }
+        
+        this.threadPool.shutdown();
     }
 
 }
