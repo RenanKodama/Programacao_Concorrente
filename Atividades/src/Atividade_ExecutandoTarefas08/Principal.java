@@ -16,7 +16,7 @@ public class Principal {
     public static void main(String[] args) {
         Random random = new Random();
         
-        //Inicializar vetor Exercicio 01
+        //Inicializar vetor
         int tamVet = 99999999;
         int[] vetor = new int[tamVet];
         
@@ -24,7 +24,7 @@ public class Principal {
             vetor[i] = random.nextInt(999999999);
         }
         
-        //Inicializar matriz Exercicio 02
+        //Inicializar matriz
         int sizeX = 1000;
         int sizeY = 1000;
         int[][] matriz = new int[sizeY][sizeY];
@@ -52,8 +52,14 @@ public class Principal {
 //        ex03.multiMatriz();
     
         /*EXERCICIO 04*/
-        Exercicio04 ex04 = new Exercicio04("src/Atividade_ExecutandoTarefas08/Exercicio01.java");
- 
+//        Exercicio04 ex04 = new Exercicio04("src/Atividade_ExecutandoTarefas08/Exercicio01.java");
+        
+        /*EXERCICIO 05*/
+//        Exercicio05 ex05 = new Exercicio05(5);
+        
+        /*EXERCICIO 06*/
+        Exercicio06 ex06 = new Exercicio06(vetor);
+        ex06.init();
     }
 }
 

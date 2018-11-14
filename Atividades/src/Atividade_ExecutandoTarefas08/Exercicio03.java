@@ -35,7 +35,8 @@ public class Exercicio03 {
     }
 
     public void multiMatriz() {
-
+        
+        System.out.println("Inicializando Tarefas ...");
         for (int i = 0; i < this.sizeXY; i++) {
             for (int j = 0; j < this.sizeXY; j++) {
 
@@ -46,6 +47,7 @@ public class Exercicio03 {
             }
         }
         
+        System.out.println("Aguardando Conclusão....");
         for (Future<Integer> ft : this.listTarefas) {
             while (!ft.isDone()) {
                 try {

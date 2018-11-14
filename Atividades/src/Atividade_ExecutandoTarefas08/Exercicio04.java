@@ -7,7 +7,8 @@
 4. Faça um programa que periodicamente monitore mudanças em um
     conjunto de arquivos especificados. Se ocorreram mudanças, o programa
     deve registrá-las em um arquivo de log.
- */
+*/
+
 package Atividade_ExecutandoTarefas08;
 
 import java.util.concurrent.Executors;
