@@ -1,3 +1,8 @@
 #Universidade Federal do Paraná
 
 
+Links: 	http://www.gpars.org/guide/guide/actors.html
+	https://stackshare.io/stackups/groovy-vs-react-native
+
+
+
