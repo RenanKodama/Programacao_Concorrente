@@ -8,7 +8,6 @@
 
 package Atividade_OneDimensionalStencil.Implementacao_Phaser;
 
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Phaser;
 
 

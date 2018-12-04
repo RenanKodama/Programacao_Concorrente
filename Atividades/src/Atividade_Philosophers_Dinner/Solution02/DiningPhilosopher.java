@@ -6,7 +6,8 @@
     
     Pegar ambos garfos:  atomicamente garantir que um fil ́osofo
     pega os dois garfos simultaneamente.
- */
+*/
+
 package Atividade_Philosophers_Dinner.Solution02;
 
 import java.util.concurrent.Semaphore;
