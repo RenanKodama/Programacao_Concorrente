@@ -1,18 +1,19 @@
 import java.util.concurrent.CountDownLatch
 
 
-class Principal{   
+class Principal{
     static void main(String[] args){
-        def vetor = [1,2,2,1]
-        def iterations = 10000
+        def vetor = [1f,2f,2f,1f]
+        def iterations = 1000
 
         StencilCode stenc = new StencilCode(vetor,iterations)
         stenc.init()
         
         println(vetor)
-
     }
 }
+    
+
 
 class StencilCode{
     def vetor
@@ -57,7 +58,7 @@ class Latch_Divisor implements Runnable{
 
     @Override
     public void run(){
-        if((this.position != 0) && (this.position != this.vetor.size())){
+        if((this.position != 0) && (this.position != this.vetor.size()-1)){
             this.vetor[this.position] = (this.vetor[this.position - 1] + this.vetor[this.position + 1]) / 2
         }
 

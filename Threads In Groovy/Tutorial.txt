@@ -1,8 +1,405 @@
-#Universidade Federal do Paraná
+
+====== Programação Concorrente em Groovy ======
+===== O que é Groovy? =====
+O Groovy é uma linguagem de programação orientada a objetos e foi projetada para rodar na Java Virtual Machine (JVM), o que faz com que ela seja multiplataforma. Originado em 2003. Groovy apresenta semelhanças com a linguagem e Python Ruby, pois também permite modificar o código da aplicação em tempo de execução (Metaprogramação). Uma outra característica do Groovy é que ele é bem flexível quanto a escrita do código veja abaixo:
+
+<code bash>
+  #Criando Lista
+  def myList = ["A", "B", "C"]
+ 
+  #Adicionando valor com <<
+  myList << "D";
+ 
+  #Adicionando valor com .add()
+  myList.add("D")
+ 
+  #Removendo com -=
+  myList -= "B";
+ 
+  #Removendo com .remove()
+  myList.remove("B")
+ 
+  println myList
+</code>
 
 
-Links: 	http://www.gpars.org/guide/guide/actors.html
-	https://stackshare.io/stackups/groovy-vs-react-native
+==== Tipagem Dinâmica ====
+<code bash>
+  #Example-01.groovy
+  int i = 10
+  println(i.class) #class java.lang.Integer
+ 
+  long l = 100000000000000000000
+  println(l.class) #class java.lang.Long
+ 
+  d = 10.0
+  println(d.class) #class java.math.BigDecimal
+ 
+  s = "olá, estamos estudando Groovy!"
+  println(s.class) #class java.lang.String
+</code>
+
+
+===== Organizações que Utilizam =====
+  * Starbucks
+  * Cask
+  * Learningpod
+  * Rumble
+  * Tradecore
+  * Arconics (+76...)
+
+
+===== Como Instalar =====
+É necessário ter o java instalado. A seguir os comandos necessários:
+
+<code bash>
+  #Instalando JAVA *se tiver desconsidere
+  sudo add-apt-repository ppa:webupd8team/java
+  sudo apt install oracle-java8-installer
+ 
+  #Instalando Groovy no Ubuntu
+  sudo apt install groovy
+
+</code>
+
+===== Executando Groovy =====
+Vá para a mesma pasta onde na qual quer executar o arquivo em Groovy e digite o seguinte comando no terminal
+
+<code bash>
+   $ groovy [nomeAruivo].groovy    #executar o código
+   $ groovyc [nomeAruivo].groovy   #gerar .class
+</code>
+
+
+===== Exemplos de Código =====
+A seguir serão apresentados alguns exemplos de código, principalmente no que diz respeito
+à Threads em Groovy.
+
+
+==== Simples Actors ====
+Atores permitem um modelo de simultaneidade baseado no envio de mensagens, os programas são coleções de objetos ativos independentes que trocam mensagens e não têm estado compartilhado mutável. Os atores podem ajudar os desenvolvedores a evitar problemas como deadlock, live-lock e starvation, que são problemas comuns para abordagens baseadas em memória compartilhada. Os atores são uma forma de alavancar a natureza multi-core do hardware atual sem todos os problemas tradicionalmente associados à multi-threading de memória compartilhada. Razão pela qual as linguagens de programação, como Erlang e Scala, adotaram esse modelo.
+
+<code bash>
+  class RepeteMensageInterval extends DefaultActor {
+      def mesage = "Aguardando MSM..."
+      void afterStart() {
+          println(mesage)
+      }
+      void act() {
+          loop {
+              react(3000){ msg ->
+                  if (msg == Actor.TIMEOUT) {
+                      println('Nada recebido \nConversa Finalizada!')
+                      stop()
+                  } else {
+                    println(msg)
+                  }
+              }
+          }
+      }
+  }
+  def repetMSG = new RepeteMensageInterval().start()
+  //repetMSG.send("oi")
+  repetMSG.join()
+</code>
+
+Este código apenas espera uma mensagem por 3 segundos, caso a mensagem não chegue nesse intervalo então a conversa é finalizada. Repare que a classe ''RepeteMensageInterval'' estende ''DefaultActor'', logo algumas funções já são predefinidas pela classe estendida, que são as funções ''act'' e ''afterStart''. Logo no inicio da criação da classe ''RepeteMensageInterval'' a função ''afterStart'' será executada. E a função ''act'' seria equivalente ao método ''run()'' em Threads em Java. Reparte também que dentro da função ''act'', existem dois escopos o primeiro deles é o ''loop{}'' na qual é equivalente ao laço ''while(true){}''. O segundo escopo é o ''react{}'', este é ativado quando uma mensagem for recebida pela variável ''msg'', repare que existe um parâmetro na chamada da função ''react(3000)'', este representa por quanto tempo a função ficará esperando as mensagens, sinalizada pela flag ''Actor.TIMEOUT''.
+
+
+==== Jogo Adivinhe o Número ====
+Para este exemplo, foi implementado em Groovy um jogo na qual um número após ser sorteado, o jogador deverá adivinhar qual é o número escolhido. A comunicação entre o jogador representado pela classe ''Player'' e o jogo representado pela classe ''GameMaster'' acontece por meio da troca de mensagens enviadas através da função ''send()'' e recebidas pelo ''react''. Caso não crie uma variável para receber a mensagem tal como ''int num -> [...]'', por padrão a função armazenará a mensagem na variável ''it''.
+
+<code bash>
+  import groovyx.gpars.actor.Actor
+  import groovyx.gpars.actor.DefaultActor
+ 
+  #Example-Actors.groovy
+  class GameMaster extends DefaultActor {
+      int secretNum
+      void afterStart() {
+          secretNum = new Random().nextInt(10)
+      }      
+      void act() {
+          loop {
+              react { int num ->
+                  if (num > secretNum)
+                    reply 'too large'
+                  else if (num < secretNum)
+                    reply 'too small'
+                  else {
+                      reply 'you win'
+                      terminate()
+                  }
+              }
+          }
+      }
+  }
+  class Player extends DefaultActor {
+      String name
+      Actor server
+      int myNum
+      void act() {
+          loop {
+              myNum = new Random().nextInt(10)
+              server.send myNum
+              react {
+                  switch (it) {
+                      case 'too large': println "$name: $myNum was too large"; break
+                      case 'too small': println "$name: $myNum was too small"; break
+                      case 'you win': println "$name: I won $myNum"; terminate(); break
+                  }
+               }
+           }
+       }
+  }
+  def master = new GameMaster().start()
+  def player = new Player(name: 'Player', server: master).start()
+  [master,player]*.join()
+</code>  
 
 
 
+==== Usando Dynamic Dispatcher ====
+Para este exemplo, a função ''decryptor'' irá funcionar de acordo com o tipo da mensagem recebida, a seguir um trecho de código que retorna o tipo de cada mensagem enviada.
+
+<code bash>
+  #Example-DynamicDispatcher.groovy
+  import static groovyx.gpars.actor.Actors.actor
+ 
+  def decryptor = actor {
+      loop {
+          react { message ->
+              if (message instanceof String){
+                  reply "Tipo: A String|Recebido: "+message
+                  return false
+              }
+              
+              if (message instanceof Double){
+                  reply 'Tipo: A Double|Recebido: '+message;
+                  return false
+              }
+
+              if (message instanceof Boolean){
+                  reply 'Tipo: Boolean|Recebido: '+message
+                  reply "Ultima MSG"
+                  return false
+              }
+
+              else{
+                  reply 'What ?|Recebido: '+message
+                  return true
+              }
+          }
+      }
+  }
+  def principal = actor{
+      decryptor.send("teste")
+      decryptor.send(1.022d)
+      decryptor.send(2)
+      decryptor.send(false)
+
+      loop{
+          react{menssage ->
+              println("${menssage}")
+
+          }
+      }
+  }
+  [decryptor, principal]*.join()
+  println("EndCode!")
+</code>
+
+
+==== Exemplo de Produtor Consumidor ====
+Neste exemplo é apresentado um código de produtor e consumidor, na qual, é utilizado um recurso compartilhado entre as Threads(fila). A Thread Produtora insere constantemente valores aleatórios no topo da fila enquanto houver espaço no vetor, caso a fila esteja cheia, então a Thread irá aguardar o espaço disponível. A Thread Consumidora, consome sempre o elemento que está no topo, caso não há elementos na fila, então a Thread irá aguardar os elementos para consumi-los.
+
+<code bash>
+  #Example-ProdutorConsum.groovy
+  import java.util.concurrent.BlockingQueue
+  import java.util.concurrent.LinkedBlockingQueue
+  import java.util.Random
+ 
+  class Principal{
+      static void main(String[] args) {
+          BlockingQueue queue = new LinkedBlockingQueue(20);
+          
+          Thread thread_Produ = new Thread(new Produtor(queue))
+          Thread thread_Consu = new Thread(new Consumidor(queue))
+
+          thread_Produ.start()
+          thread_Consu.start()
+      }
+  }
+  class Produtor implements Runnable{
+      BlockingQueue queue
+      
+      public Produtor(q){
+          queue = q
+      }
+
+      @Override
+      public void run(){
+          while(true){
+              queue << Math.abs(new Random().nextInt() % 666) + 1
+              println "Add: ${queue}"
+              sleep(1000)
+          }
+      }  
+  }
+  class Consumidor implements Runnable{
+      BlockingQueue queue
+
+      public Consumidor(q){
+          queue = q
+      }
+
+      @Override
+      public void run(){
+          while(true){
+              def number = queue.take()
+              println "Consu: ${number}"
+              sleep(2000)
+          }
+      }  
+  }
+</code>
+
+
+==== Exemplo de Lock Reentrant ====
+A classe ReentrantLock implementa a interface de bloqueio e fornece sincronização aos métodos ao acessar recursos compartilhados. Sendo assim, o trecho apresentado controla as Threads quando elas acessam a função ''f_Sleep3Times()'', permitindo que apenas uma Thread por vez entre na região crítica. O controle à esta região, é realizado pela função ''ReentrantLock'' definido no método principal que atua sobre o escopo marcado por ''this.lock.withLock{}''. Logo, quando uma Thread, acessar esta região, ela irá realizar o ''lock()'', irá acessar a região crítica delimitada pelo escopo e sempre será realizado o ''unlock()'' após a execução, pela função ''finally{unlock()}'', sendo este processo definido em ''ReentrantLock.metaClass.withLock''.
+
+<code bash>
+  #Example-ReentrantLock.groovy
+  import java.util.concurrent.locks.ReentrantLock
+  import java.util.concurrent.Semaphore
+
+  class TestMultiThreadSleep implements Runnable {
+      String name
+      int timeToSleep
+      def lock;
+      
+      public TestMultiThreadSleep(String name, int time,lockVar)   {
+        this.name = name;
+        this.timeToSleep = time
+        this.lock = lockVar
+      }
+
+      static void main(String[] args) {
+        ReentrantLock.metaClass.withLock={ critical ->
+          lock()
+          try{critical()}
+          finally{unlock()}
+       }
+
+       def lock = new ReentrantLock();
+       Thread thread1 = new Thread(new TestMultiThreadSleep("Thread01",1000,lock));          
+       Thread thread2 = new Thread(new TestMultiThreadSleep("Thread02",2000,lock));
+       Thread thread3 = new Thread(new TestMultiThreadSleep("Thread03",3000,lock));
+       thread1.start();
+       thread2.start();
+       thread3.start();
+     }
+
+     @Override
+     public void run() {
+       f_Sleep3Times();
+     }
+
+     public void f_Sleep3Times(){
+       this.lock.withLock{
+         println "${name} Step 1"
+         sleep(this.timeToSleep)
+         println "${name} Step 2"
+         sleep(this.timeToSleep)
+         println "${name} Step 3"
+         sleep(this.timeToSleep)
+       }
+ 
+     }
+  }
+</code>
+
+==== Stencil Code com Latch ====
+Para esta implementação, o objetivo do código é igualar os números intermediários com os valores das extremidades do vetor de tamanho N, com um número I definindo a quantidade de iterações. Logo, são passados para as Threads realizarem a divisão dos 2...N-1 posições do vetor. A barreira, aguarda até que todas as Threads tenham finalizado a execução para prosseguir para a próxima fase da iteração. Sintaxe: BigInteger G ou g, Long L ou l, Integer I ou i, BigDecimal G ou g, Double D ou d, Float F ou f. A seguir, o trecho de código é apresentado.
+
+<code bash>
+  #Example-StencilCode.groovy
+  import java.util.concurrent.CountDownLatch
+
+
+  class Principal{   
+      static void main(String[] args){
+          def vetor = [1,2,2,1]
+          def iterations = 10000
+
+          StencilCode stenc = new StencilCode(vetor,iterations)
+          stenc.init()
+        
+          println(vetor)
+
+      }
+  }
+
+  class StencilCode{
+      def vetor
+      def iterations
+      CountDownLatch doneSignal
+
+      public StencilCode(vet, iterati){
+          this.vetor = vet
+          this.iterations = iterati
+          this.doneSignal = new CountDownLatch(vetor.size()-2)
+      }
+
+      public void init(){
+          def iterator = 0
+
+          while(iterator <= this.iterations){
+            
+              for(int i=0;i<this.vetor.size();i++){
+                  Thread thr = new Thread(new Latch_Divisor(i,this.vetor,this.doneSignal))
+                  thr.start()
+              }
+
+              this.doneSignal.await()
+
+              iterator++
+              this.doneSignal = new CountDownLatch(2)
+          }
+      }
+  }
+
+  class Latch_Divisor implements Runnable{
+      def position
+      def vetor
+      CountDownLatch doneSignal
+
+      public Latch_Divisor(pos,vet,done){
+          this.position = pos
+          this.vetor = vet
+          this.doneSignal = done
+      }
+
+      @Override
+      public void run(){
+          if((this.position != 0) && (this.position != this.vetor.size())){
+              this.vetor[this.position] = (this.vetor[this.position - 1] + this.vetor[this.position + 1]) / 2
+          }
+
+          this.doneSignal.countDown()
+      }
+  }
+</code>
+ 
+ 
+===== Considerações Finais =====  
+A instalação do Groovy foi simples, com apenas dois comandos a linguagem foi instalada. Por ser muito parecido com as linguagens Java, Python, Ruby, Scala e Kotlin, a adaptação para esta linguagem ocorreu de forma agradável, principalmente por ser muito flexível quanto a gramática do código. Entretanto, com a recente atualização do Java o Groovy apresentou alguns problemas de chamadas do ''java.utils'', alguns avisos também são apresentados durante a compilação dos códigos ressaltando ocorreu uma operação ilegal. Existem algumas IDE's que dão suporte à linguagem, são elas: ''Intelligent Idea'', ''NetBeans'' e ''Eclipse''. Os testes tentaram ser executados na IDE NetBeans, entretanto houve problemas com a criação dos projetos sobre o suporte com aplicações em Groovy. Sendo assim, os testes foram executados via Terminal linux.
+
+Por fim, podemos considerar que o Groovy é uma linguagem ágil, dinâmica e agradável para programar, mas à falta de suporte e materiais desenvolvidos para esta linguagem deixam a desejar. Também é válido ressaltar que Groovy encontra -se em fase beta com a última atualização disponibilizada e 20 de fevereiro de 2018.
+
+ 
+===== Links Úteis =====
+  * Actors - Reference Documentation - http://www.gpars.org/guide/guide/actors.html
+  * React Native vs. Groovy - https://stackshare.io/stackups/groovy-vs-react-native
+  * Linguagem de Programação Groovy: Introdução - https://www.devmedia.com.br/linguagem-de-programacao-groovy-introducao/34099
+  * Documentação - http://docs.groovy-lang.org/latest/html/documentation/
