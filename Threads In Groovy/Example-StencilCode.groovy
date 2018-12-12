@@ -3,7 +3,7 @@ import java.util.concurrent.CountDownLatch
 
 class Principal{
     static void main(String[] args){
-        def vetor = [1f,2f,2f,1f]
+        def vetor = [1,2,2,1]
         def iterations = 1000
 
         StencilCode stenc = new StencilCode(vetor,iterations)
